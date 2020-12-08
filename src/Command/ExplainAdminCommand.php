@@ -90,15 +90,19 @@ class ExplainAdminCommand extends Command
             ));
         }
 
-        $output->writeln('');
-        $output->writeln('<info>Datagrid Filters</info>');
-        foreach ($admin->getFilterFieldDescriptions() as $name => $fieldDescription) {
-            $output->writeln(sprintf(
-                '  - % -25s  % -15s % -15s',
-                $name,
-                $fieldDescription->getType(),
-                $fieldDescription->getTemplate()
-            ));
+        try {
+            $output->writeln('');
+            $output->writeln('<info>Datagrid Filters</info>');
+            foreach ($admin->getFilterFieldDescriptions() as $name => $fieldDescription) {
+                $output->writeln(sprintf(
+                    '  - % -25s  % -15s % -15s',
+                    $name,
+                    $fieldDescription->getType(),
+                    $fieldDescription->getTemplate()
+                ));
+            }
+        } catch(\Exception $e){
+            $output->writeln(sprintf('<error>Exception Thrown: %s</error>', $e->getMessage()));
         }
 
         $output->writeln('');
